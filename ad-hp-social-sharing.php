@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Social Sharing for HivePress
  * Description: Allow users to share HivePress content across social networks.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: alokhinDev
  * Author URI: https://alokhin.dev/
  * Text Domain: ad-hp-social-sharing
