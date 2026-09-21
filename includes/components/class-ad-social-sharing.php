@@ -25,7 +25,7 @@ final class AD_Social_Sharing extends Component {
 	 *
 	 * @var array
 	 */
-	protected $models = [ 'listing', 'vendor', 'request' ];
+	protected $models = [ 'listing', 'vendor', 'request', 'user' ];
 
 	/**
 	 * Class constructor.
@@ -66,6 +66,25 @@ final class AD_Social_Sharing extends Component {
 			return $blocks;
 		}
 
+		// Get URL.
+		if ( 'user' === $model ) {
+			$url = hivepress()->router->get_url( $model . '_view_page', [ 'username' => $object->get_username() ] );
+		} else {
+			$url = hivepress()->router->get_url( $model . '_view_page', [ $model . '_id' => $object->get_id() ] );
+		}
+
+		// Get title.
+		if ( 'vendor' === $model ) {
+			$title = $object->get_name();
+		} elseif ( 'user' === $model ) {
+			$title = $object->get_display_name();
+		} else {
+			$title = $object->get_title();
+		}
+
+		// Get media.
+		$media = $object->get_image__url( 'large' );
+
 		// Set header.
 		$header = '';
 
@@ -82,12 +101,12 @@ final class AD_Social_Sharing extends Component {
 				// Get slug.
 				$slug = hp\sanitize_slug( $name );
 
-				// Get URL.
-				$url = hp\replace_tokens(
+				// Get share URL.
+				$share_url = hp\replace_tokens(
 					[
-						'url'   => rawurlencode( hivepress()->router->get_url( $model . '_view_page', [ $model . '_id' => $object->get_id() ] ) ),
-						'title' => rawurlencode( $model === 'vendor' ? $object->get_name() : $object->get_title() ),
-						'media' => $object->get_image__url( 'large' ) ? rawurlencode( $object->get_image__url( 'large' ) ) : '',
+						'url'   => rawurlencode( $url ),
+						'title' => rawurlencode( $title ),
+						'media' => $media ? rawurlencode( $media ) : '',
 					],
 					hp\get_array_value( $args, 'url', '' )
 				);
@@ -96,7 +115,7 @@ final class AD_Social_Sharing extends Component {
 				$icon = hp\get_array_value( $args, 'icon', hivepress()->get_url( 'ad_hp_social_sharing' ) . '/assets/images/icons/' . $slug . '.svg' );
 
 				// Render link.
-				$header .= '<a href="' . esc_attr( $url ) . '" class="hp-social-links__item hp-social-links__item--' . esc_attr( $slug ) . ' button button--large button--primary alt" target="_blank" rel="nofollow">';
+				$header .= '<a href="' . esc_attr( $share_url ) . '" class="hp-social-links__item hp-social-links__item--' . esc_attr( $slug ) . ' button button--large button--primary alt" target="_blank" rel="nofollow">';
 
 				$header .= '<img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $args['label'] ) . '" />';
 				$header .= '<span>' . esc_html( $args['label'] ) . '</span>';
@@ -114,7 +133,7 @@ final class AD_Social_Sharing extends Component {
 
 				'fields' => [
 					'_link' => [
-						'value' => hivepress()->router->get_url( $model . '_view_page', [ $model . '_id' => $object->get_id() ] ),
+						'value' => $url,
 					],
 				],
 			]
