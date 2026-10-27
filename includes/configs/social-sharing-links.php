@@ -53,4 +53,14 @@ return [
 		'label' => esc_html__( 'WhatsApp', 'ad-hp-social-sharing' ),
 		'url'   => 'https://api.whatsapp.com/send?text=%title%%20%url%',
 	],
+
+	'threads'   => [
+		'label' => esc_html__( 'Threads', 'ad-hp-social-sharing' ),
+		'url'   => 'https://www.threads.net/intent/post?text=%title%%0A%0A%url%',
+	],
+
+	'bluesky'  => [
+		'label' => esc_html__( 'Bluesky', 'ad-hp-social-sharing' ),
+		'url'   => 'https://bsky.app/intent/compose?text=%title%%0A%0A%url%',
+	],
 ];
