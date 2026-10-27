@@ -20,6 +20,15 @@ add_filter(
 	function( $extensions ) {
 		$extensions[] = __DIR__;
 
+		if ( ! isset( $extensions['ad_hp_updates'] ) ) {
+			$path = '/vendor/alokhindev/ad-hp-updates';
+
+			if ( file_exists( __DIR__ . $path . '/ad-hp-updates.php' ) ) {
+				$extensions['ad_hp_updates'] = __DIR__ . $path;
+			}
+		}
+
 		return $extensions;
-	}
+	},
+	1000
 );
