@@ -1,0 +1,16 @@
+{
+  "require": {
+    "alokhindev/ad-hp-updates": "^1.0.0"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "wp-coding-standards/wpcs": "^3.4",
+    "phpcompatibility/phpcompatibility-wp": "^2.1.0"
+  },
+  "config": {
+    "autoloader-suffix": "077a3f6fa3d7a7f58a67455dc8f00d9a",
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
