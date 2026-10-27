@@ -17,6 +17,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install dependencies
+        run: |
+          composer install -o --no-dev
+
       - name: Pack release
         run: |
           rm -rf .git* composer.* phpcs.xml README.md
